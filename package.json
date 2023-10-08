@@ -1,6 +1,6 @@
 {
   "name": "luoluo-rust-error",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Rust-like error handling in TypeScript",
   "scripts": {
     "format": "prettier --write .",
