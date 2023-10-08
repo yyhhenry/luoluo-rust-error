@@ -1,10 +1,10 @@
 import assert from 'assert';
-import { withError, withErrorAsync } from './index';
+import { rustError, rustErrorAsync } from './index';
 
-describe('withError', () => {
+describe('rustError', () => {
   it('should return Ok if the function executes successfully', () => {
     const fn = () => 42;
-    const result = withError(fn)();
+    const result = rustError(fn)();
     expect(result).toStrictEqual({ ok: true, v: 42 });
   });
 
@@ -12,7 +12,7 @@ describe('withError', () => {
     const fn = () => {
       throw new Error('Something went wrong');
     };
-    const result = withError(fn)();
+    const result = rustError(fn)();
     assert(result.ok === false);
     assert(result.e instanceof Error);
     assert(result.e.message === 'Something went wrong');
@@ -23,7 +23,7 @@ describe('withError', () => {
       throw new TypeError('Invalid argument');
     };
     const filter = (e: unknown): e is TypeError => e instanceof TypeError;
-    const result = withError(fn, filter)();
+    const result = rustError(fn, filter)();
     assert(result.ok === false);
     assert(result.e instanceof TypeError);
     assert(result.e.message === 'Invalid argument');
@@ -34,15 +34,15 @@ describe('withError', () => {
       throw new TypeError('Invalid argument');
     };
     const filter = (e: unknown): e is SyntaxError => e instanceof SyntaxError;
-    const wrappedFn = withError(fn, filter);
+    const wrappedFn = rustError(fn, filter);
     expect(() => wrappedFn()).toThrow(TypeError);
   });
 });
 
-describe('withErrorAsync', () => {
+describe('rustErrorAsync', () => {
   it('should return Ok if the function executes successfully', async () => {
     const fn = async () => 42;
-    const result = await withErrorAsync(fn)();
+    const result = await rustErrorAsync(fn)();
     expect(result).toStrictEqual({ ok: true, v: 42 });
   });
 
@@ -50,7 +50,7 @@ describe('withErrorAsync', () => {
     const fn = async () => {
       throw new Error('Something went wrong');
     };
-    const result = await withErrorAsync(fn)();
+    const result = await rustErrorAsync(fn)();
     assert(result.ok === false);
     assert(result.e instanceof Error);
     assert(result.e.message === 'Something went wrong');
@@ -61,7 +61,7 @@ describe('withErrorAsync', () => {
       throw new TypeError('Invalid argument');
     };
     const filter = (e: unknown): e is TypeError => e instanceof TypeError;
-    const result = await withErrorAsync(fn, filter)();
+    const result = await rustErrorAsync(fn, filter)();
     assert(result.ok === false);
     assert(result.e instanceof TypeError);
     assert(result.e.message === 'Invalid argument');
@@ -72,7 +72,7 @@ describe('withErrorAsync', () => {
       throw new TypeError('Invalid argument');
     };
     const filter = (e: unknown): e is SyntaxError => e instanceof SyntaxError;
-    const wrappedFn = withErrorAsync(fn, filter);
+    const wrappedFn = rustErrorAsync(fn, filter);
     await expect(wrappedFn()).rejects.toBeInstanceOf(TypeError);
   });
 });
