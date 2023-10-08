@@ -1,7 +1,7 @@
 {
-  "name": "luoluo-with-error",
+  "name": "luoluo-rust-error",
   "version": "0.0.0",
-  "description": "",
+  "description": "Rust-like error handling in TypeScript",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --ext .ts .",
@@ -11,8 +11,15 @@
   "exports": {
     ".": "./index.ts"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "rust",
+    "error",
+    "typescript"
+  ],
+  "author": {
+    "name": "yyhhenry",
+    "email": "yyhhenry@foxmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",

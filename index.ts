@@ -15,14 +15,14 @@ export function Err<E>(e: E): Err<E> {
 export type Result<V, E> = Ok<V> | Err<E>;
 export type ErrorFilter<E> = (e: unknown) => e is E;
 export type Callable = (...args: never[]) => unknown;
-export function withError<Fn extends Callable>(
+export function rustError<Fn extends Callable>(
   fn: Fn,
 ): (...args: Parameters<Fn>) => Result<ReturnType<Fn>, unknown>;
-export function withError<Fn extends Callable, E>(
+export function rustError<Fn extends Callable, E>(
   fn: Fn,
   filter: ErrorFilter<E>,
 ): (...args: Parameters<Fn>) => Result<ReturnType<Fn>, E>;
-export function withError<Fn extends Callable, E>(
+export function rustError<Fn extends Callable, E>(
   fn: Fn,
   filter?: ErrorFilter<E>,
 ) {
@@ -37,16 +37,16 @@ export function withError<Fn extends Callable, E>(
     }
   };
 }
-export function withErrorAsync<Fn extends Callable>(
+export function rustErrorAsync<Fn extends Callable>(
   fn: Fn,
 ): (
   ...args: Parameters<Fn>
 ) => Promise<Result<Awaited<ReturnType<Fn>>, unknown>>;
-export function withErrorAsync<Fn extends Callable, E>(
+export function rustErrorAsync<Fn extends Callable, E>(
   fn: Fn,
   filter: ErrorFilter<E>,
 ): (...args: Parameters<Fn>) => Promise<Result<Awaited<ReturnType<Fn>>, E>>;
-export function withErrorAsync<Fn extends Callable, E>(
+export function rustErrorAsync<Fn extends Callable, E>(
   fn: Fn,
   filter?: ErrorFilter<E>,
 ) {
