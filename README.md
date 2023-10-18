@@ -12,6 +12,72 @@ Use `rustError()` and `rustErrorAsync()` to wrap your functions that may throw e
 
 Feel free to add filters to these two.
 
+## Best Practice
+
+```ts
+import { Ok, Err, Result, rustError } from 'luoluo-rust-error';
+
+function getStatusBase(): string {
+  const condition = Math.floor(Math.random() * 3);
+  // Some progress that may fail or give out some unexpected result,
+  // .e.g. network request
+  if (condition === 0) {
+    throw new Error('error');
+  } else if (condition === 1) {
+    return '+';
+  }
+  return '200';
+}
+
+// Before
+export function getStatus1(): { status: number } | { error: string } {
+  let result: string | undefined = undefined;
+  // Variables are nullable
+  // In this case, non-nullable type can be inferred, but it is not always possible, especially when there are some lambda functions
+  try {
+    result = getStatusBase();
+  } catch (error) {
+    return { error: 'Cannot get status' };
+  }
+  let status: number | undefined = undefined;
+  // So many try-catch blocks
+  try {
+    status = parseInt(result);
+  } catch (error) {
+    return { error: 'malformed status' };
+  }
+  return { status };
+}
+export function getStatus2(): { status: number } | { error: string } {
+  // One giant try-catch block
+  // Uneasy to judge the error type
+  // May catch some unexpected errors
+  try {
+    const result = getStatusBase();
+    const status = parseInt(result);
+    return { status };
+  } catch (error) {
+    return { error: 'Unknown error' };
+  }
+}
+
+// After
+export function getStatus(): Result<number, string> {
+  const result = rustError(getStatusBase)();
+  // Variables are non-nullable and errors are solved at once, with type inference
+  // The caught error is the expected error
+  if (!result.ok) {
+    return Err('Cannot get status');
+  }
+  const status = rustError(parseInt)(result.v);
+  if (!status.ok) {
+    return Err('malformed status');
+  }
+  return Ok(status.v);
+}
+
+```
+
 ## Basic Usage
 
 ```ts
