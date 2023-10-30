@@ -75,7 +75,6 @@ export function getStatus(): Result<number, string> {
   }
   return Ok(status.v);
 }
-
 ```
 
 ## Basic Usage
@@ -150,5 +149,4 @@ testSafeParseJSON('{a:1}'); // Err(SyntaxError(Unexpected token a in JSON at pos
 testSafeParseJSON(''); // Err(SyntaxError(Unexpected end of JSON input))
 testSafeParseJSON('1'); // Ok(1)
 testSafeParseJSON('{"a":'); // Err(SyntaxError(Unexpected end of JSON input))
-
 ```
