@@ -1,6 +1,6 @@
 {
   "name": "luoluo-rust-error",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "description": "Rust-like error handling in TypeScript",
   "scripts": {
@@ -12,7 +12,7 @@
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist/**/*"
+    "dist"
   ],
   "keywords": [
     "rust",
