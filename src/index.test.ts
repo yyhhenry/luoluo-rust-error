@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { rustError, rustErrorAsync } from './index';
+import { rustError, rustErrorAsync } from './index.js';
 import { describe, expect, test } from 'vitest';
 describe('rustError', () => {
   test('should return Ok if the function executes successfully', () => {
