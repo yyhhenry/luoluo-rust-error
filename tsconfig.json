@@ -1,3 +1,10 @@
 {
-  "extends": "@tsconfig/node18"
+  "extends": "@tsconfig/node18",
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.ts"],
+  "compilerOptions": {
+    "module": "NodeNext",
+    "declaration": true,
+    "outDir": "./dist"
+  }
 }
