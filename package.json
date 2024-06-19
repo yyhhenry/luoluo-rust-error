@@ -1,8 +1,8 @@
 {
   "name": "luoluo-rust-error",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
-  "description": "Rust-like error handling in TypeScript",
+  "description": "[deprecated] Rust-like error handling in TypeScript",
   "repository": {
     "type": "git",
     "url": "https://github.com/yyhhenry/luoluo-rust-error"
